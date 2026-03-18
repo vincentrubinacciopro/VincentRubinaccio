@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vincent Rubinaccio — Creative Production Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#080808;color:#f0ede8;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:background 0.4s,backdrop-filter 0.4s,border-color 0.4s;border-bottom:1px solid transparent}
+.top-nav.scrolled{background:rgba(8,8,8,0.97);backdrop-filter:blur(10px);border-bottom-color:rgba(255,255,255,0.08)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:0.06em;color:#f0ede8}
+.nav-logo em{color:#D4521E;font-style:normal}
+.nav-links{display:flex;gap:32px}
+.nav-link{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(240,237,232,0.6);transition:color 0.2s;padding-bottom:3px;border-bottom:1px solid transparent}
+.nav-link:hover{color:#f0ede8;border-bottom-color:#D4521E}
+
+.hero-full{position:relative;width:100%;height:100vh;min-height:600px;overflow:hidden;background:#000}
+.hero-video-wrap{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-video-wrap iframe{position:absolute;top:50%;left:50%;width:calc(100vw + 200px);height:calc(100vh + 200px);transform:translate(-50%,-50%);border:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.05) 35%,rgba(0,0,0,0.55) 70%,rgba(8,8,8,1) 100%);z-index:1}
+.hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:0 64px 72px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.hero-eyebrow{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#D4521E;margin-bottom:14px}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,120px);line-height:0.88;letter-spacing:0.02em;color:#f0ede8;text-shadow:0 2px 40px rgba(0,0,0,0.5)}
+.hero-name em{color:#D4521E;font-style:normal}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-bottom:8px}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border:1px solid rgba(212,82,30,0.45);border-radius:2px;font-size:12px;font-weight:500;color:#e8825a;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:#D4521E}
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;transition:opacity 0.4s;animation:bcue 2s ease-in-out infinite}
+.scroll-cue span{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#f0ede8}
+.scroll-arrow{width:1px;height:32px;background:linear-gradient(to bottom,transparent,#f0ede8)}
+@keyframes bcue{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(255,255,255,0.08)}
+.stat{padding:28px 48px;border-right:1px solid rgba(255,255,255,0.08)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:#f0ede8;margin-bottom:5px}
+.stat-l{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(240,237,232,0.45)}
+
+/* LOGO STRIP */
+.logo-strip{border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;position:relative;padding:0}
+.logo-strip::before,.logo-strip::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.logo-strip::before{left:0;background:linear-gradient(to right,#080808,transparent)}
+.logo-strip::after{right:0;background:linear-gradient(to left,#080808,transparent)}
+.logo-track-wrap{overflow:hidden}
+.logo-track{display:flex;width:max-content;animation:scrollLogos 32s linear infinite}
+.logo-track:hover{animation-play-state:paused}
+@keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.logo-item{display:flex;align-items:center;justify-content:center;padding:28px 40px;border-right:1px solid rgba(255,255,255,0.06);flex-shrink:0;transition:background 0.3s;cursor:default}
+.logo-item:hover{background:rgba(255,255,255,0.03)}
+.logo-item svg,.logo-item img{height:28px;width:auto;max-width:120px;opacity:0.28;transition:opacity 0.3s;filter:brightness(0) invert(1)}
+.logo-item:hover svg,.logo-item:hover img{opacity:0.75}
+/* text logos for brands without clean SVG paths */
+.logo-wordmark{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.08em;color:rgba(240,237,232,0.28);white-space:nowrap;transition:color 0.3s;line-height:1}
+.logo-item:hover .logo-wordmark{color:rgba(240,237,232,0.78)}
+
+.section{padding:72px 56px}
+.section.bordered{border-bottom:1px solid rgba(255,255,255,0.08)}
+.sec-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#D4521E;margin-bottom:32px;display:flex;align-items:center;gap:14px}
+.sec-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+
+.vgrid{display:grid;gap:3px}
+.vgrid.g2{grid-template-columns:1fr 1fr}
+.vgrid.g3{grid-template-columns:repeat(3,1fr)}
+.vc{position:relative;aspect-ratio:16/9;background:#0e0e0e;overflow:hidden;border-radius:2px}
+.vc iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
+
+.cap{margin:52px 0 64px;padding:40px 44px;background:#0d0d0d;border-left:3px solid #D4521E;position:relative;overflow:hidden}
+.cap::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,82,30,0.05) 0%,transparent 55%);pointer-events:none}
+.cap-ey{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#D4521E;margin-bottom:10px}
+.cap-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4.5vw,50px);line-height:0.95;color:#f0ede8;margin-bottom:14px}
+.cap-b{font-size:15px;font-weight:300;color:rgba(240,237,232,0.68);max-width:580px;line-height:1.8}
+.cap-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.cap-tag{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:rgba(240,237,232,0.5)}
+
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
+.ps-ey{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,237,232,0.4);margin-bottom:14px}
+.ps-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,7vw,84px);line-height:0.9;color:#f0ede8;margin-bottom:24px}
+.ps-h em{color:#D4521E;font-style:normal;display:block}
+.ps-b{font-size:15px;font-weight:300;color:rgba(240,237,232,0.68);line-height:1.8;margin-bottom:18px}
+.ps-items{display:flex;flex-direction:column;gap:28px}
+.ps-item{display:flex;gap:18px;align-items:flex-start}
+.ps-num{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;color:rgba(212,82,30,0.35);min-width:34px}
+.ps-it{font-size:14px;font-weight:500;color:#f0ede8;margin-bottom:6px}
+.ps-ib{font-size:13px;font-weight:300;color:rgba(240,237,232,0.62);line-height:1.75}
+
+.tools-strip{padding:36px 56px;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.tools-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,237,232,0.35);white-space:nowrap;flex-shrink:0}
+.tools-list{display:flex;gap:10px;flex-wrap:wrap}
+.tool-tag{font-size:12px;padding:6px 14px;border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(240,237,232,0.5);transition:all 0.2s}
+.tool-tag:hover{border-color:rgba(212,82,30,0.5);color:rgba(240,237,232,0.85)}
+
+.cta{padding:88px 56px;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
+.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.9;color:#f0ede8;margin-bottom:12px}
+.cta-h em{color:#D4521E;font-style:normal}
+.cta-sub{font-size:14px;color:rgba(240,237,232,0.5);font-weight:300}
+.cta-btns{display:flex;flex-direction:column;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all 0.2s}
+.btn-p{background:#D4521E;color:#fff;border:none}
+.btn-p:hover{background:#bf4518}
+.btn-g{background:transparent;color:#f0ede8;border:1px solid rgba(240,237,232,0.25)}
+.btn-g:hover{border-color:rgba(240,237,232,0.65);color:#fff}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .top-nav,.hero-content,.section,.tools-strip,.cta{padding-left:24px;padding-right:24px}
+  .hero-content{padding-bottom:48px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:22px 24px}
+  .ps-grid{grid-template-columns:1fr;gap:44px}
+  .cap{padding:28px 24px}
+  .vgrid.g2,.vgrid.g3{grid-template-columns:1fr}
+  .hero-right{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav" id="nav">
+  <div class="nav-logo">Vincent <em>R.</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="#work">Work</a>
+    <a class="nav-link" href="#approach">Approach</a>
+    <a class="nav-link" href="mailto:vincent.rubinaccio@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="hero-full">
+  <div class="hero-video-wrap">
+    <iframe src="https://player.vimeo.com/video/1174409504?h=115e61874f&autoplay=1&muted=1&loop=1&background=1&quality=1080p" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Creative Production Leader</div>
+      <div class="hero-name">Vincent<br><em>Rubinaccio</em></div>
+    </div>
+    <div class="hero-right">
+      <div class="badge"><div class="badge-dot"></div>2x Emmy Award Winner</div>
+      <div class="badge"><div class="badge-dot"></div>15x Emmy Nominated</div>
+      <div class="badge"><div class="badge-dot"></div>NESN · Bruins · Red Sox</div>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<div class="stats reveal" id="work">
+  <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Years leading production</div></div>
+  <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Videos produced</div></div>
+  <div class="stat"><div class="stat-n">3 to 4</div><div class="stat-l">Campaigns per week</div></div>
+  <div class="stat"><div class="stat-n">6M+</div><div class="stat-l">Audience reached</div></div>
+</div>
+
+<!-- LOGO STRIP — inline SVGs, no external API -->
+<div class="logo-strip reveal">
+  <div class="logo-track-wrap">
+    <div class="logo-track">
+
+      <!-- SET 1 -->
+
+      <!-- Boston Bruins -->
+      <div class="logo-item">
+        <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <ellipse cx="60" cy="30" rx="52" ry="26" fill="none" stroke="white" stroke-width="4"/>
+          <ellipse cx="60" cy="30" rx="40" ry="18" fill="none" stroke="white" stroke-width="2"/>
+          <text x="60" y="35" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">BRUINS</text>
+        </svg>
+      </div>
+
+      <!-- Boston Red Sox -->
+      <div class="logo-item">
+        <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="60" y="20" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">BOSTON</text>
+          <text x="60" y="40" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="white" letter-spacing="0.5">RED SOX</text>
+        </svg>
+      </div>
+
+      <!-- New England Patriots -->
+      <div class="logo-item">
+        <svg viewBox="0 0 140 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="70" y="20" font-family="Arial Black, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">NEW ENGLAND</text>
+          <text x="70" y="40" font-family="Arial Black, sans-serif" font-size="15" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">PATRIOTS</text>
+        </svg>
+      </div>
+
+      <!-- NESN -->
+      <div class="logo-item">
+        <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="50" y="31" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="white" letter-spacing="3">NESN</text>
+        </svg>
+      </div>
+
+      <!-- Barstool Sports -->
+      <div class="logo-item">
+        <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="white" letter-spacing="0.5">BARSTOOL</text>
+          <text x="80" y="40" font-family="Arial Black, sans-serif" font-size="13" font-weight="900" text-anchor="middle" fill="white" letter-spacing="2">SPORTS</text>
+        </svg>
+      </div>
+
+      <!-- Grillos Pickles -->
+      <div class="logo-item">
+        <svg viewBox="0 0 150 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="75" y="20" font-family="Georgia, serif" font-size="11" font-weight="700" text-anchor="middle" fill="white" letter-spacing="2">GRILLO'S</text>
+          <text x="75" y="40" font-family="Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">PICKLES</text>
+        </svg>
+      </div>
+
+      <!-- Nissan -->
+      <div class="logo-item">
+        <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="18" width="110" height="14" fill="none" stroke="white" stroke-width="2.5"/>
+          <text x="60" y="30" font-family="Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="white" letter-spacing="3">NISSAN</text>
+        </svg>
+      </div>
+
+      <!-- Harvard -->
+      <div class="logo-item">
+        <svg viewBox="0 0 130 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="65" y="20" font-family="Georgia, serif" font-size="10" text-anchor="middle" fill="white" letter-spacing="2">UNIVERSITY</text>
+          <text x="65" y="40" font-family="Georgia, serif" font-size="20" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">Harvard</text>
+        </svg>
+      </div>
+
+      <!-- PayBlox -->
+      <div class="logo-item">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="60" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">Pay<tspan fill="#D4521E">Blox</tspan></text>
+        </svg>
+      </div>
+
+      <!-- Viamark -->
+      <div class="logo-item">
+        <svg viewBox="0 0 130 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="65" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="white" letter-spacing="2">VIAMARK</text>
+        </svg>
+      </div>
+
+      <!-- Shields Healthcare -->
+      <div class="logo-item">
+        <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">SHIELDS</text>
+          <text x="80" y="38" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="white" letter-spacing="2">HEALTHCARE</text>
+        </svg>
+      </div>
+
+      <!-- SET 2 — duplicate for seamless loop -->
+
+      <div class="logo-item">
+        <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <ellipse cx="60" cy="30" rx="52" ry="26" fill="none" stroke="white" stroke-width="4"/>
+          <ellipse cx="60" cy="30" rx="40" ry="18" fill="none" stroke="white" stroke-width="2"/>
+          <text x="60" y="35" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">BRUINS</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="60" y="20" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">BOSTON</text>
+          <text x="60" y="40" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="white" letter-spacing="0.5">RED SOX</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 140 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="70" y="20" font-family="Arial Black, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">NEW ENGLAND</text>
+          <text x="70" y="40" font-family="Arial Black, sans-serif" font-size="15" font-weight="900" text-anchor="middle" fill="white" letter-spacing="1">PATRIOTS</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="50" y="31" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="white" letter-spacing="3">NESN</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="white" letter-spacing="0.5">BARSTOOL</text>
+          <text x="80" y="40" font-family="Arial Black, sans-serif" font-size="13" font-weight="900" text-anchor="middle" fill="white" letter-spacing="2">SPORTS</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 150 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="75" y="20" font-family="Georgia, serif" font-size="11" font-weight="700" text-anchor="middle" fill="white" letter-spacing="2">GRILLO'S</text>
+          <text x="75" y="40" font-family="Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">PICKLES</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="18" width="110" height="14" fill="none" stroke="white" stroke-width="2.5"/>
+          <text x="60" y="30" font-family="Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="white" letter-spacing="3">NISSAN</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 130 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="65" y="20" font-family="Georgia, serif" font-size="10" text-anchor="middle" fill="white" letter-spacing="2">UNIVERSITY</text>
+          <text x="65" y="40" font-family="Georgia, serif" font-size="20" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">Harvard</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="60" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">Pay<tspan fill="#D4521E">Blox</tspan></text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 130 40" xmlns="http://www.w3.org/2000/svg">
+          <text x="65" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="white" letter-spacing="2">VIAMARK</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="white" letter-spacing="1">SHIELDS</text>
+          <text x="80" y="38" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="white" letter-spacing="2">HEALTHCARE</text>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TV SHOW CAMPAIGNS -->
+<div class="section bordered reveal">
+  <div class="sec-label">TV Show Campaigns</div>
+  <div class="vgrid g2">
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409734?h=6f7f9583d6&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409527?h=b9276f289c&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409491?h=c067e8cae1&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174408402?h=ef3ffed862&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+  </div>
+  <div class="cap">
+    <div class="cap-ey">Capability spotlight</div>
+    <div class="cap-h">Campaigns that launch<br>shows and build audiences.</div>
+    <div class="cap-b">Every show campaign I build is engineered to cut through. Concept, script, shoot, edit, deliver. I own the full arc and make sure every frame earns its place on air and on screen.</div>
+    <div class="cap-tags"><span class="cap-tag">Series Launches</span><span class="cap-tag">On Air Promos</span><span class="cap-tag">Network Branding</span><span class="cap-tag">Audience Development</span></div>
+  </div>
+</div>
+
+<!-- TENTPOLE CAMPAIGNS -->
+<div class="section bordered reveal">
+  <div class="sec-label">Tentpole Campaigns</div>
+  <div class="vgrid g3">
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409154?h=ecc6a1d274&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409471?h=966b3c4591&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409171?h=a5ef8e8ad4&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174408864?h=ec62c403c8&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409063?h=d63d1c564e&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409132?h=d995e29aad&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+  </div>
+  <div class="cap">
+    <div class="cap-ey">Capability spotlight</div>
+    <div class="cap-h">Tentpole campaigns<br>built to move audiences.</div>
+    <div class="cap-b">Season launches, playoff pushes, media days. I own the full arc from brief to broadcast. Every asset aligned across live action, animation, and digital, on time and on brand.</div>
+    <div class="cap-tags"><span class="cap-tag">Season Launches</span><span class="cap-tag">Playoff Campaigns</span><span class="cap-tag">Media Day</span><span class="cap-tag">League Alignment</span><span class="cap-tag">Sponsorship Integration</span></div>
+  </div>
+</div>
+
+<!-- SOCIAL PROMOS -->
+<div class="section bordered reveal">
+  <div class="sec-label">Social Promos</div>
+  <div class="vgrid g3">
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409638?h=40e3976638&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409450?h=5937e2a258&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409830?h=6285891166&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409404?h=c3c9811663&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409360?h=413092110e&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409115?h=34b94442fd&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409330?h=726eec942d&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+  </div>
+  <div class="cap">
+    <div class="cap-ey">Capability spotlight</div>
+    <div class="cap-h">High volume. Fast turn.<br>Still excellent.</div>
+    <div class="cap-b">From Barstool's first Snapchat to daily digital reels for audiences in the millions. I have built and led the systems that make high frequency content possible without sacrificing quality.</div>
+    <div class="cap-tags"><span class="cap-tag">Fast Turnaround Delivery</span><span class="cap-tag">Platform Native Formats</span><span class="cap-tag">Audience Engagement</span><span class="cap-tag">Content Systems</span></div>
+  </div>
+</div>
+
+<!-- BRANDED CONTENT -->
+<div class="section bordered reveal">
+  <div class="sec-label">Branded Content</div>
+  <div class="vgrid g3">
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1038683165?h=7ba0140c9f&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1099375710?h=aad770f43b&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174408925?h=d5b045beca&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1033313567?h=3aa8ed0f0c&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174408821?h=5387d3e183&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174557107?h=df94b770e7&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+  </div>
+  <div class="cap">
+    <div class="cap-ey">Capability spotlight</div>
+    <div class="cap-h">Executive level work<br>that closes rooms.</div>
+    <div class="cap-b">I have built sizzles directly with CEOs and CMOs that shaped annual strategy and commercial positioning. Not just creative. Business critical storytelling with seven figure stakes.</div>
+    <div class="cap-tags"><span class="cap-tag">C Suite Collaboration</span><span class="cap-tag">Brand Strategy</span><span class="cap-tag">Vendor Negotiation</span><span class="cap-tag">Six Figure Budgets</span></div>
+  </div>
+</div>
+
+<!-- SIZZLE REELS -->
+<div class="section bordered reveal">
+  <div class="sec-label">Sizzle Reels</div>
+  <div class="vgrid g3">
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409504?h=115e61874f&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409242?h=50f7a0ebba&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409203?h=b8231addf7&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174409600?h=afb0d46547&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+    <div class="vc"><iframe src="https://player.vimeo.com/video/1174408997?h=277125f92f&autoplay=0&title=0&byline=0&portrait=0&color=D4521E" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+  </div>
+  <div class="cap">
+    <div class="cap-ey">Capability spotlight</div>
+    <div class="cap-h">The work that<br>wins the room.</div>
+    <div class="cap-b">Two Emmy wins, back to back. These reels represent the full range. Brand lift, audience emotion, and creative craft working together. This is what I bring when the stakes are highest.</div>
+    <div class="cap-tags"><span class="cap-tag">2x Emmy Winner</span><span class="cap-tag">15x Nominated</span><span class="cap-tag">Brand Lift</span><span class="cap-tag">Audience Emotion</span></div>
+  </div>
+</div>
+
+<!-- APPROACH -->
+<div class="section bordered reveal" id="approach">
+  <div class="ps-grid">
+    <div>
+      <div class="ps-ey">How I work</div>
+      <div class="ps-h">I find<br><em>the path</em><br>forward.</div>
+      <p class="ps-b">Every production has a moment where the plan meets reality. Budget pressure, a timeline shift, a stakeholder pivot. I do not escalate. I navigate. The work still ships. The work is still good.</p>
+      <p class="ps-b">That is the value I bring beyond the Emmy shelf.</p>
+    </div>
+    <div class="ps-items">
+      <div class="ps-item"><div class="ps-num">01</div><div><div class="ps-it">Clarity before chaos</div><div class="ps-ib">I align creative intent with business objectives at the brief stage so mid production surprises are rare, not routine.</div></div></div>
+      <div class="ps-item"><div class="ps-num">02</div><div><div class="ps-it">Systems not just instincts</div><div class="ps-ib">I build workflows, Workfront structures, and team rituals that make great work repeatable and not dependent on a heroic sprint.</div></div></div>
+      <div class="ps-item"><div class="ps-num">03</div><div><div class="ps-it">Lean when it needs to be</div><div class="ps-ib">I have run six figure productions and shoestring shoots. I know how to protect quality when the budget does not cooperate.</div></div></div>
+      <div class="ps-item"><div class="ps-num">04</div><div><div class="ps-it">The room trusts me</div><div class="ps-ib">C suite, vendors, editors, athletes. I speak every language on a production. That fluency is what keeps things moving.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="tools-strip reveal">
+  <span class="tools-label">Tools &amp; workflow</span>
+  <div class="tools-list">
+    <span class="tool-tag">Adobe Premiere</span>
+    <span class="tool-tag">After Effects</span>
+    <span class="tool-tag">Photoshop</span>
+    <span class="tool-tag">Adobe Workfront</span>
+    <span class="tool-tag">AI Assisted Workflow</span>
+    <span class="tool-tag">Scriptwriting</span>
+    <span class="tool-tag">Live Action</span>
+    <span class="tool-tag">Animation</span>
+    <span class="tool-tag">Vendor Negotiation</span>
+    <span class="tool-tag">Budget Management</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta reveal">
+  <div>
+    <div class="cta-h">Ready to<br><em>build together.</em></div>
+    <div class="cta-sub">Open to in office, hybrid, or remote · Bilingual EN / ES</div>
+  </div>
+  <div class="cta-btns">
+    <a class="btn btn-p" href="mailto:vincent.rubinaccio@gmail.com">Get in touch</a>
+    <a class="btn btn-g" href="https://vjr173.wixsite.com/17productions" target="_blank">Full portfolio</a>
+    <a class="btn btn-g" href="https://linkedin.com/in/vincent-rubinaccio-33179152/" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80);
+  const cue=document.getElementById('scrollCue');
+  if(cue) cue.style.opacity=window.scrollY>100?'0':'0.5';
+},{passive:true});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
