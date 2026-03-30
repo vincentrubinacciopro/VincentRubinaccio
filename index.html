@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +36,9 @@ a{text-decoration:none;color:inherit}
 .hero-badges{display:flex;gap:10px;flex-wrap:wrap}
 .badge{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border:1px solid rgba(201,168,76,0.45);border-radius:2px;font-size:12px;font-weight:500;color:#e4c97a;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px)}
 .badge-dot{width:5px;height:5px;border-radius:50%;background:#C9A84C}
-.scroll-cue{position:absolute;bottom:28px;right:64px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;transition:opacity 0.4s;animation:bcue 2s ease-in-out infinite}
-.scroll-cue span{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#f0ede8}
-.scroll-arrow{width:1px;height:32px;background:linear-gradient(to bottom,transparent,#f0ede8)}
-@keyframes bcue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.hero-volume-btn{position:absolute;bottom:28px;right:64px;z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(26,33,49,0.75);backdrop-filter:blur(10px);border:1px solid rgba(201,168,76,0.3);color:#f0ede8;font-size:18px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.4);user-select:none}
+.hero-volume-btn:hover{background:rgba(201,168,76,0.2);border-color:#C9A84C}
+@media(max-width:900px){.hero-volume-btn{bottom:16px;right:24px;width:38px;height:38px;font-size:16px}}
 
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(255,255,255,0.08)}
@@ -284,7 +284,7 @@ a{text-decoration:none;color:inherit}
 <!-- HERO -->
 <div class="hero-full">
   <div class="hero-video-wrap">
-    <iframe src="https://player.vimeo.com/video/1174409504?h=115e61874f&autoplay=1&muted=1&loop=1&background=1&quality=1080p" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen playsinline></iframe>
+    <iframe id="hero-iframe" src="https://player.vimeo.com/video/1176888180?h=7ab50b0659&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&autopause=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen playsinline></iframe>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -298,10 +298,7 @@ a{text-decoration:none;color:inherit}
         
     </div>
   </div>
-  <div class="scroll-cue" id="scrollCue">
-    <span>Scroll</span>
-    <div class="scroll-arrow"></div>
-  </div>
+  <div class="hero-volume-btn" id="heroVolumeBtn" onclick="toggleHeroVolume()" title="Unmute">🔇</div>
 </div>
 
 <!-- STATS -->
@@ -974,11 +971,45 @@ setTimeout(function(){
 },800);
 </script><script>
 // Nav scroll
-window.addEventListener('scroll',()=>{
-  
-  const cue=document.getElementById('scrollCue');
-  if(cue) cue.style.opacity=window.scrollY>100?'0':'0.5';
-},{passive:true});
+window.addEventListener('scroll',function(){},{passive:true});
+
+// Load Vimeo Player API and force muted autoplay immediately
+(function(){
+  var tag = document.createElement('script');
+  tag.src = 'https://player.vimeo.com/api/player.js';
+  tag.onload = function(){
+    var iframe = document.getElementById('hero-iframe');
+    var player = new Vimeo.Player(iframe);
+    player.setMuted(true).then(function(){
+      player.play().catch(function(){});
+    });
+    // Store player for volume toggle
+    window._heroPlayer = player;
+  };
+  document.head.appendChild(tag);
+})();
+
+// Hero Volume Toggle
+var heroUnmuted = false;
+function toggleHeroVolume() {
+  var btn = document.getElementById('heroVolumeBtn');
+  var player = window._heroPlayer;
+  if (!player) return;
+  if (!heroUnmuted) {
+    player.setMuted(false).then(function(){
+      player.setVolume(1);
+      btn.innerHTML = '🔊';
+      btn.title = 'Mute';
+      heroUnmuted = true;
+    });
+  } else {
+    player.setMuted(true).then(function(){
+      btn.innerHTML = '🔇';
+      btn.title = 'Unmute';
+      heroUnmuted = false;
+    });
+  }
+}
 
 // Carousel data
 function playVideo(mainId, vidId, h, el) {
